@@ -17,6 +17,36 @@ Resources:
       - AttributeName: AnimalID
         KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+  ImageProcessingStepFunction:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: ..\..\workflows\imageProcessing.asl.json
+      Role:
+        Fn::GetAtt:
+        - StepFunctionExecutionRole
+        - Arn
+  StepFunctionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: states.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: StepFunctionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - lambda:InvokeFunction
+            - dynamodb:UpdateItem
+            - s3:GetObject
+            - s3:PutObject
+            Resource: '*'
   CreateAnimalFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -155,6 +185,50 @@ Resources:
             Method: GET
     Metadata:
       SamResourceId: GetAnimalImagesFunction
+  GenerateThumbnailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: generateThumbnail
+      Handler: src/generateThumbnail.handler
+      Runtime: nodejs18.x
+      CodeUri: GenerateThumbnailFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonS3ReadOnlyAccess
+      Environment:
+        Variables:
+          BUCKET_NAME:
+            Ref: AnimalImagesBucket
+    Metadata:
+      SamResourceId: GenerateThumbnailFunction
+  ExtractMetadataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: extractMetadata
+      Handler: src/extractMetadata.handler
+      Runtime: nodejs18.x
+      CodeUri: ExtractMetadataFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonS3ReadOnlyAccess
+    Metadata:
+      SamResourceId: ExtractMetadataFunction
+  UpdateAnimalMetadataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: updateAnimalMetadata
+      Handler: src/updateAnimalMetadata.handler
+      Runtime: nodejs18.x
+      CodeUri: UpdateAnimalMetadataFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+    Metadata:
+      SamResourceId: UpdateAnimalMetadataFunction
 Outputs:
   ApiEndpoint:
     Value:

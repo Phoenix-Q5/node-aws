@@ -21,6 +21,35 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
 
+  ImageProcessingStepFunction:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: workflows/imageProcessing.asl.json
+      Role: !GetAtt StepFunctionExecutionRole.Arn
+
+  StepFunctionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: StepFunctionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                  - dynamodb:UpdateItem
+                  - s3:GetObject
+                  - s3:PutObject
+                Resource: '*'
+
   CreateAnimalFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -144,6 +173,46 @@ Resources:
           Properties:
             Path: /animals/{id}/images
             Method: GET
+
+  GenerateThumbnailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: generateThumbnail
+      Handler: src/generateThumbnail.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonS3ReadOnlyAccess
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref AnimalImagesBucket
+
+  ExtractMetadataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: extractMetadata
+      Handler: src/extractMetadata.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonS3ReadOnlyAccess
+
+  UpdateAnimalMetadataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: updateAnimalMetadata
+      Handler: src/updateAnimalMetadata.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref AnimalsTable
+                    
 Outputs:
   ApiEndpoint:
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'

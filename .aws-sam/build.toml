@@ -7,6 +7,6 @@ architecture = "x86_64"
 handler = "src/handlers/createAnimal.handler"
 manifest_hash = ""
 packagetype = "Zip"
-functions = ["CreateAnimalFunction", "GetAnimalFunction", "DeleteAnimalFunction", "UpdateAnimalFunction", "UploadImageFunction", "GetAnimalImagesFunction"]
+functions = ["CreateAnimalFunction", "GetAnimalFunction", "DeleteAnimalFunction", "UpdateAnimalFunction", "UploadImageFunction", "GetAnimalImagesFunction", "GenerateThumbnailFunction", "ExtractMetadataFunction", "UpdateAnimalMetadataFunction"]
 
 [layer_build_definitions]

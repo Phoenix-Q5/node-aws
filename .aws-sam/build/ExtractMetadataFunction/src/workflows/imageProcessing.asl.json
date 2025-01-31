@@ -1,0 +1,21 @@
+{
+    "Comment": "Image Processing Workflow",
+    "StartAt": "GenerateThumbnail",
+    "States": {
+      "GenerateThumbnail": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:region:account-id:function:generateThumbnail",
+        "Next": "ExtractMetadata"
+      },
+      "ExtractMetadata": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:region:account-id:function:extractMetadata",
+        "Next": "UpdateDynamoDB"
+      },
+      "UpdateDynamoDB": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:region:account-id:function:updateAnimalMetadata",
+        "End": true
+      }
+    }
+  }
