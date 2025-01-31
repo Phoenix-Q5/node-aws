@@ -5,7 +5,11 @@ Application built using serverless model.
 ### Setup
 * Import and run ```npm install``` to install the packages.
 * Configure AWS environment in local using ```aws configure```.
-* Optional - Install AWS ToolKit Extension in VS Code 
+* Optional - Install AWS ToolKit Extension in VS Code
+
+### Run Tests
+* AWS Mock SDK and Jest frameworks are used for unit tests.
+* Use ```npx jest``` to run the test suite. 
 
 ### Services
 * Used API Gateway to create rest endpoints and lambda functions are triggered for backend processing.
@@ -17,6 +21,6 @@ Application built using serverless model.
 * Run ```sam build``` to build the package
 * Run ```sam deploy --guided``` to trigger deployment.
 
-### Deployment Logs
-* Deployment logs folder is created to understand the commands, resource creations and development purposes. 
+### Output Logs
+* Logs folder is created to understand the commands, resource creations and development purposes. 
 * These are NOT used for development of business logic, but only to understand resource usage and command outputs.
