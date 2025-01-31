@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Animalia App Backend
+
+Resources:
+  CreateAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: createAnimal
+      Handler: src/handlers/createAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+        - AmazonS3FullAccess
+      Events:
+        CreateAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals
+            Method: POST
+
+  GetAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getAnimal
+      Handler: src/handlers/getAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+      Events:
+        GetAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}
+            Method: GET
+
+  DeleteAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: deleteAnimal
+      Handler: src/handlers/deleteAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: .
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+      Events:
+        DeleteAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}
+            Method: DELETE
+
+Outputs:
+  ApiEndpoint:
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
+    Description: 'API Gateway endpoint URL'

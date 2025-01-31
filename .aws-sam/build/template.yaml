@@ -1,0 +1,166 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Animalia App Backend
+Resources:
+  AnimalImagesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: animalia-app
+  AnimalsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Animals
+      AttributeDefinitions:
+      - AttributeName: AnimalID
+        AttributeType: S
+      KeySchema:
+      - AttributeName: AnimalID
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+  CreateAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: createAnimal
+      Handler: src/handlers/createAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: CreateAnimalFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      - AmazonS3FullAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+      Events:
+        CreateAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals
+            Method: POST
+    Metadata:
+      SamResourceId: CreateAnimalFunction
+  GetAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getAnimal
+      Handler: src/handlers/getAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: GetAnimalFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+      Events:
+        GetAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}
+            Method: GET
+    Metadata:
+      SamResourceId: GetAnimalFunction
+  DeleteAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: deleteAnimal
+      Handler: src/handlers/deleteAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: DeleteAnimalFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+      Events:
+        DeleteAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}
+            Method: DELETE
+    Metadata:
+      SamResourceId: DeleteAnimalFunction
+  UpdateAnimalFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: updateAnimal
+      Handler: src/handlers/updateAnimal.handler
+      Runtime: nodejs18.x
+      CodeUri: UpdateAnimalFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+      Events:
+        UpdateAnimalApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}
+            Method: PUT
+    Metadata:
+      SamResourceId: UpdateAnimalFunction
+  UploadImageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: uploadImage
+      Handler: src/handlers/uploadImage.handler
+      Runtime: nodejs18.x
+      CodeUri: UploadImageFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonS3FullAccess
+      Environment:
+        Variables:
+          BUCKET_NAME:
+            Ref: AnimalImagesBucket
+          TABLE_NAME:
+            Ref: AnimalsTable
+      Events:
+        UploadImageApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}/uploadImage
+            Method: POST
+    Metadata:
+      SamResourceId: UploadImageFunction
+  GetAnimalImagesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getAnimalImages
+      Handler: src/getAnimalImages.handler
+      Runtime: nodejs18.x
+      CodeUri: GetAnimalImagesFunction
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      - AmazonS3ReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: AnimalsTable
+          BUCKET_NAME:
+            Ref: AnimalImagesBucket
+      Events:
+        GetAnimalImagesApi:
+          Type: Api
+          Properties:
+            Path: /animals/{id}/images
+            Method: GET
+    Metadata:
+      SamResourceId: GetAnimalImagesFunction
+Outputs:
+  ApiEndpoint:
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod
+    Description: API Gateway endpoint URL
+  AnimalsTableName:
+    Description: DynamoDB Animals Table Name
+    Value:
+      Ref: AnimalsTable

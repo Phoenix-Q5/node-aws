@@ -1,0 +1,20 @@
+sam build
+Building codeuri: F:\Source Codes\node-aws runtime: nodejs18.x architecture: x86_64 functions: CreateAnimalFunction, GetAnimalFunction, DeleteAnimalFunction
+ Running NodejsNpmBuilder:NpmPack
+ Running NodejsNpmBuilder:CopyNpmrcAndLockfile
+ Running NodejsNpmBuilder:CopySource
+ Running NodejsNpmBuilder:NpmInstall
+ Running NodejsNpmBuilder:CleanUpNpmrc
+ Running NodejsNpmBuilder:LockfileCleanUp
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam\build
+Built Template   : .aws-sam\build\template.yaml
+
+Commands you can use next
+=========================
+[*] Validate SAM template: sam validate
+[*] Invoke Function: sam local invoke
+[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
+[*] Deploy: sam deploy --guided

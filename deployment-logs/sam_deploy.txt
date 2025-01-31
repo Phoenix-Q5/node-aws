@@ -1,0 +1,127 @@
+sam deploy
+
+                Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-x6rsqgcmgeiz
+                A different default S3 bucket can be set in samconfig.toml
+                Or by specifying --s3-bucket explicitly.
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+File with same data already exists at Animalia-App/678892415dab66475860737de567d84f, skipping upload
+
+        Deploying with following values
+        ===============================
+        Stack name                   : Animalia-App
+        Region                       : us-east-2
+        Confirm changeset            : True
+        Disable rollback             : True
+        Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-x6rsqgcmgeiz
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+File with same data already exists at Animalia-App/b57f2dc05a062ae67631d7b54224c35a.template, skipping upload
+
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+Operation                              LogicalResourceId                      ResourceType                           Replacement
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
++ Add                                  GetAnimalImagesFunctionGetAnimalImag   AWS::Lambda::Permission                N/A
+                                       esApiPermissionProd
++ Add                                  GetAnimalImagesFunction                AWS::Lambda::Function                  N/A
++ Add                                  ServerlessRestApiDeploymentdeb6a8241   AWS::ApiGateway::Deployment            N/A
+                                       d
++ Add                                  UpdateAnimalFunctionUpdateAnimalApiP   AWS::Lambda::Permission                N/A
+                                       ermissionProd
++ Add                                  UploadImageFunctionUploadImageApiPer   AWS::Lambda::Permission                N/A
+                                       missionProd
++ Add                                  UploadImageFunction                    AWS::Lambda::Function                  N/A
+* Modify                               AnimalImagesBucket                     AWS::S3::Bucket                        True
+* Modify                               ServerlessRestApiProdStage             AWS::ApiGateway::Stage                 False
+* Modify                               ServerlessRestApi                      AWS::ApiGateway::RestApi               False
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+
+
+Changeset created successfully. arn:aws:cloudformation:us-east-2:061039798212:changeSet/samcli-deploy1738296841/7cf86cfe-c6fc-473c-a9ae-0b67ed852d44        
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]: y
+
+2025-01-30 22:14:17 - Waiting for stack create/update to complete
+
+CloudFormation events from stack operations (refresh every 5.0 seconds)
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+ResourceStatus                         ResourceType                           LogicalResourceId                      ResourceStatusReason
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+UPDATE_IN_PROGRESS                     AWS::CloudFormation::Stack             Animalia-App                           User Initiated
+DELETE_COMPLETE                        AWS::S3::Bucket                        AnimalImagesBucket                     Delete succeeded for the resources     
+                                                                                                                     that failed to create.
+CREATE_IN_PROGRESS                     AWS::S3::Bucket                        AnimalImagesBucket                     -
+CREATE_IN_PROGRESS                     AWS::S3::Bucket                        AnimalImagesBucket                     Resource creation Initiated
+CREATE_COMPLETE                        AWS::S3::Bucket                        AnimalImagesBucket                     -
+CREATE_IN_PROGRESS                     AWS::Lambda::Function                  GetAnimalImagesFunction                -
+CREATE_IN_PROGRESS                     AWS::Lambda::Function                  UploadImageFunction                    -
+CREATE_IN_PROGRESS                     AWS::Lambda::Function                  UploadImageFunction                    Resource creation Initiated
+CREATE_IN_PROGRESS                     AWS::Lambda::Function                  GetAnimalImagesFunction                Resource creation Initiated
+CREATE_COMPLETE                        AWS::Lambda::Function                  GetAnimalImagesFunction                -
+CREATE_COMPLETE                        AWS::Lambda::Function                  UploadImageFunction                    -
+UPDATE_IN_PROGRESS                     AWS::ApiGateway::RestApi               ServerlessRestApi                      -
+UPDATE_COMPLETE                        AWS::ApiGateway::RestApi               ServerlessRestApi                      -
+CREATE_IN_PROGRESS                     AWS::ApiGateway::Deployment            ServerlessRestApiDeploymentdeb6a8241   -
+                                                                              d
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                UploadImageFunctionUploadImageApiPer   -
+                                                                              missionProd
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                UpdateAnimalFunctionUpdateAnimalApiP   -
+                                                                              ermissionProd
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                GetAnimalImagesFunctionGetAnimalImag   -
+                                                                              esApiPermissionProd
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                UploadImageFunctionUploadImageApiPer   Resource creation Initiated
+                                                                              missionProd
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                GetAnimalImagesFunctionGetAnimalImag   Resource creation Initiated
+                                                                              esApiPermissionProd
+CREATE_IN_PROGRESS                     AWS::Lambda::Permission                UpdateAnimalFunctionUpdateAnimalApiP   Resource creation Initiated
+                                                                              ermissionProd
+CREATE_IN_PROGRESS                     AWS::ApiGateway::Deployment            ServerlessRestApiDeploymentdeb6a8241   Resource creation Initiated
+                                                                              d
+CREATE_COMPLETE                        AWS::Lambda::Permission                UploadImageFunctionUploadImageApiPer   -
+                                                                              missionProd
+CREATE_COMPLETE                        AWS::Lambda::Permission                GetAnimalImagesFunctionGetAnimalImag   -
+                                                                              esApiPermissionProd
+CREATE_COMPLETE                        AWS::Lambda::Permission                UpdateAnimalFunctionUpdateAnimalApiP   -
+                                                                              ermissionProd
+CREATE_COMPLETE                        AWS::ApiGateway::Deployment            ServerlessRestApiDeploymentdeb6a8241   -
+                                                                              d
+UPDATE_IN_PROGRESS                     AWS::ApiGateway::Stage                 ServerlessRestApiProdStage             -
+UPDATE_COMPLETE                        AWS::ApiGateway::Stage                 ServerlessRestApiProdStage             -
+UPDATE_COMPLETE_CLEANUP_IN_PROGRESS    AWS::CloudFormation::Stack             Animalia-App                           -
+DELETE_IN_PROGRESS                     AWS::ApiGateway::Deployment            ServerlessRestApiDeployment6a0d35170   -
+                                                                              d
+DELETE_COMPLETE                        AWS::ApiGateway::Deployment            ServerlessRestApiDeployment6a0d35170   -
+                                                                              d
+UPDATE_COMPLETE                        AWS::CloudFormation::Stack             Animalia-App                           -
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+
+CloudFormation outputs from deployed stack
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+Outputs
+---------------------------------------------------------------------------------------------------------------------------------------------------------   
+Key                 AnimalsTableName
+Description         DynamoDB Animals Table Name
+Value               Animals
+
+Key                 ApiEndpoint
+Description         API Gateway endpoint URL
+Value               https://ma0e8vrl41.execute-api.us-east-2.amazonaws.com/Prod
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Successfully created/updated stack - Animalia-App in us-east-2
