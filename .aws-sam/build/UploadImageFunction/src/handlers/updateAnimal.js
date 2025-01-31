@@ -46,7 +46,7 @@ exports.handler = async (event) => {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({error: 'Error updating animal'}),
+            body: JSON.stringify({error: 'Error updating animal', details: error.message}),
         };
     }
 

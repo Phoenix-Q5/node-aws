@@ -28,7 +28,7 @@ exports.handler = async (event) => {
     }catch (error){
         return{
             statusCode: 500,
-            body: JSON.stringify({error: 'Error fetching animal'}),
+            body: JSON.stringify({error: 'Error fetching animal', details: error.message}),
         };
     }
 

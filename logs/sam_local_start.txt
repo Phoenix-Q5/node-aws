@@ -1,0 +1,13 @@
+sam local start-api
+Mounting CreateAnimalFunction at http://127.0.0.1:3000/animals [POST]
+Mounting DeleteAnimalFunction at http://127.0.0.1:3000/animals/{id} [DELETE]
+Mounting GetAnimalImagesFunction at http://127.0.0.1:3000/animals/{id}/images [GET]
+Mounting UploadImageFunction at http://127.0.0.1:3000/animals/{id}/uploadImage [POST]
+Mounting UpdateAnimalFunction at http://127.0.0.1:3000/animals/{id} [PUT]
+Mounting GetAnimalFunction at http://127.0.0.1:3000/animals/{id} [GET]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will 
+be reflected instantly/automatically. If you used sam build before running local commands, you will need to re-run sam build for the changes to be picked   
+up. You only need to restart SAM CLI if you update your AWS SAM template
+2025-01-30 22:37:35 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:3000
+2025-01-30 22:37:35 Press CTRL+C to quit

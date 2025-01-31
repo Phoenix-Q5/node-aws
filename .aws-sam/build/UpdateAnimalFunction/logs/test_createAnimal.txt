@@ -1,0 +1,26 @@
+Execution log for request 5f538004-d571-4a66-b013-5812cab3d2c9
+Fri Jan 31 04:58:48 UTC 2025 : Starting execution for request: 5f538004-d571-4a66-b013-5812cab3d2c9
+Fri Jan 31 04:58:48 UTC 2025 : HTTP Method: POST, Resource Path: /animals
+Fri Jan 31 04:58:48 UTC 2025 : Method request path: {}
+Fri Jan 31 04:58:48 UTC 2025 : Method request query string: {}
+Fri Jan 31 04:58:48 UTC 2025 : Method request headers: {}
+Fri Jan 31 04:58:48 UTC 2025 : Method request body before transformations: {
+    "name": "Siberian Tiger",
+    "species": "Panthera tigris",
+    "age": 5,
+    "description": "The Siberian tiger or Amur tiger is native to Northeast China and Russia.",
+    "phylum": "Chordata",
+    "genus": "Panthera",
+    "scientificName": "Felis tigris"
+}
+Fri Jan 31 04:58:48 UTC 2025 : Endpoint request URI: https://lambda.us-east-2.amazonaws.com/2015-03-31/functions/arn:aws:lambda:us-east-2:061039798212:function:createAnimal/invocations
+Fri Jan 31 04:58:48 UTC 2025 : Endpoint request headers: {X-Amz-Date=20250131T045848Z, x-amzn-apigateway-api-id=ma0e8vrl41, Accept=application/json, User-Agent=AmazonAPIGateway_ma0e8vrl41, Host=lambda.us-east-2.amazonaws.com, X-Amz-Content-Sha256=8b1017a4ccfac8aea5ed7278a6c2bdcce570505f2944e5ed5dd6e779f8c505cd, X-Amzn-Trace-Id=Root=1-679c5888-b36b3f9247e8776617d8718c, x-amzn-lambda-integration-tag=5f538004-d571-4a66-b013-5812cab3d2c9, Authorization=*********************************************************************************************************************************************************************************************************************************************************************************************************************************************609fc8, X-Amz-Source-Arn=arn:aws:execute-api:us-east-2:061039798212:ma0e8vrl41/test-invoke-stage/POST/animals, X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKz//////////wEaCXVzLWVhc3QtMiJHMEUCIQDDWe8NAewjFDjfHWQXdxZ1mk7R5RUiliJXctteM4ECQQIgQKpWdl7sZiCYPCOEAXejsLhICQnCSfa16IadN [TRUNCATED]
+Fri Jan 31 04:58:48 UTC 2025 : Endpoint request body after transformations: {"resource":"/animals","path":"/animals","httpMethod":"POST","headers":null,"multiValueHeaders":null,"queryStringParameters":null,"multiValueQueryStringParameters":null,"pathParameters":null,"stageVariables":null,"requestContext":{"resourceId":"dqb30c","resourcePath":"/animals","httpMethod":"POST","extendedRequestId":"FPLFWGmoCYcFUAg=","requestTime":"31/Jan/2025:04:58:48 +0000","path":"/animals","accountId":"061039798212","protocol":"HTTP/1.1","stage":"test-invoke-stage","domainPrefix":"testPrefix","requestTimeEpoch":1738299528308,"requestId":"5f538004-d571-4a66-b013-5812cab3d2c9","identity":{"cognitoIdentityPoolId":null,"cognitoIdentityId":null,"apiKey":"test-invoke-api-key","principalOrgId":null,"cognitoAuthenticationType":null,"userArn":"arn:aws:iam::061039798212:root","apiKeyId":"test-invoke-api-key-id","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36","accountId":"061039798212","caller [TRUNCATED]
+Fri Jan 31 04:58:48 UTC 2025 : Sending request to https://lambda.us-east-2.amazonaws.com/2015-03-31/functions/arn:aws:lambda:us-east-2:061039798212:function:createAnimal/invocations
+Fri Jan 31 04:58:50 UTC 2025 : Received response. Status: 200, Integration latency: 2069 ms
+Fri Jan 31 04:58:50 UTC 2025 : Endpoint response headers: {Date=Fri, 31 Jan 2025 04:58:50 GMT, Content-Type=application/json, Content-Length=444, Connection=keep-alive, x-amzn-RequestId=3ad59a44-43cb-4c6a-bc33-49c815e6524f, x-amzn-Remapped-Content-Length=0, X-Amz-Executed-Version=$LATEST, X-Amzn-Trace-Id=Root=1-679c5888-b36b3f9247e8776617d8718c;Parent=15a96876c4724f64;Sampled=0;Lineage=1:a6b6979d:0}
+Fri Jan 31 04:58:50 UTC 2025 : Endpoint response body before transformations: {"statusCode":201,"body":"{\"message\":\"Animal created successfully\",\"animal\":{\"AnimalID\":\"b1821edd-c982-4cd1-8838-501c63841ebd\",\"Name\":\"Siberian Tiger\",\"Species\":\"Panthera tigris\",\"Age\":5,\"Description\":\"The Siberian tiger or Amur tiger is native to Northeast China and Russia.\",\"Phylum\":\"Chordata\",\"Genus\":\"Panthera\",\"ScientificName\":\"Felis tigris\",\"CreatedAt\":\"2025-01-31T04:58:49.773Z\",\"Images\":[]}}"}
+Fri Jan 31 04:58:50 UTC 2025 : Method response body after transformations: {"message":"Animal created successfully","animal":{"AnimalID":"b1821edd-c982-4cd1-8838-501c63841ebd","Name":"Siberian Tiger","Species":"Panthera tigris","Age":5,"Description":"The Siberian tiger or Amur tiger is native to Northeast China and Russia.","Phylum":"Chordata","Genus":"Panthera","ScientificName":"Felis tigris","CreatedAt":"2025-01-31T04:58:49.773Z","Images":[]}}
+Fri Jan 31 04:58:50 UTC 2025 : Method response headers: {X-Amzn-Trace-Id=Root=1-679c5888-b36b3f9247e8776617d8718c;Parent=15a96876c4724f64;Sampled=0;Lineage=1:a6b6979d:0}
+Fri Jan 31 04:58:50 UTC 2025 : Successfully completed execution
+Fri Jan 31 04:58:50 UTC 2025 : Method completed with status: 201

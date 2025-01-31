@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     } catch (error) {
         return {
         statusCode: 500,
-        body: JSON.stringify({error: 'Animal deletion failed'}),
+        body: JSON.stringify({error: 'Animal deletion failed', details: error.message}),
         };
     }
 

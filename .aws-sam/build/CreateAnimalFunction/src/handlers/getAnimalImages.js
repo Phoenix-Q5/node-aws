@@ -41,7 +41,7 @@ exports.handler = async (event) => {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Could not retrieve images' }),
+            body: JSON.stringify({ error: 'Could not retrieve images', details: error.message }),
         };
     }
 };

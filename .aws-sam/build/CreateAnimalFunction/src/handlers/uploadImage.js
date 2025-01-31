@@ -12,6 +12,13 @@ exports.handler = async (event) => {
     
     const key = `${id}/${fileName}`;
 
+    const uploadUrl = s3.getSignedUrl('putObject', {
+        Bucket: bucketName,
+        Key: key,
+        ContentType: fileType,
+        Expires: 300,
+    });
+
     const params = {
         TableName: tableName,
         Key: {
@@ -32,12 +39,7 @@ exports.handler = async (event) => {
     };
 
     try{
-        const uploadUrl = s3.getSignedUrl('putObject', {
-            Bucket: bucketName,
-            Key: key,
-            ContentType: fileType,
-            Expires: 300,
-        });
+        await dynamoDb.update(params).promise();
         return {
             statusCode: 200,
             body: JSON.stringify({
@@ -48,7 +50,7 @@ exports.handler = async (event) => {
     } catch (error){
         return {
             statusCode: 500,
-            body: JSON.stringify({error: 'Failed to upload image'}),
+            body: JSON.stringify({error: 'Failed to upload image', details: error.message}),
         };
     }
 };

@@ -1,0 +1,9 @@
+{
+    "name": "Siberian Tiger",
+    "species": "Panthera tigris",
+    "age": 5,
+    "description": "The Siberian tiger or Amur tiger is native to Northeast China and Russia.",
+    "phylum": "Chordata",
+    "genus": "Panthera",
+    "scientificName": "Felis tigris"
+}

@@ -1,35 +1,49 @@
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-exports.handler = async (event) => {
-    const {name, species, age, description, phylum, genus, scientificName } = JSON.parse(event.body);
+const tableName = process.env.TABLE_NAME;
 
-    const params = {
-        TableName: 'Animals',
-        Items: {
+exports.handler = async (event) => {
+    try {
+        const requestBody = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+        const { name, species, age, description, phylum, genus, scientificName } = requestBody;
+
+        if (!name || !species) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Missing required fields: name or species' }),
+            };
+        }
+
+        const animalItem = {
             AnimalID: AWS.util.uuid.v4(),
             Name: name,
             Species: species,
-            Age: age,
-            Description: description,
-            Phylum: phylum,
-            Genus: genus,
-            ScientificName: scientificName,
+            Age: age || null,
+            Description: description || null,
+            Phylum: phylum || null,
+            Genus: genus || null,
+            ScientificName: scientificName || null,
             CreatedAt: new Date().toISOString(),
-            Images:[]
-        },
-    };
+            Images: [],
+        };
 
-    try {
+        const params = {
+            TableName: tableName,
+            Item: animalItem,
+        };
+
         await dynamoDb.put(params).promise();
+
         return {
             statusCode: 201,
-            body: JSON.stringify({message: 'Animal created successfully'}),
+            body: JSON.stringify({ message: 'Animal created successfully', animal: animalItem }),
         };
-    } catch (error){
+    } catch (error) {
+        console.error('Error creating animal:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({error: 'Animal upload failed!'}),
+            body: JSON.stringify({ error: 'Could not create animal', details: error.message }),
         };
     }
 };
