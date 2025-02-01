@@ -26,4 +26,4 @@ Application built using serverless model.
 * These are NOT used for development of business logic, but only to understand resource usage and command outputs.
 
 ### Implemented git branch protection
-* main branch is write protected. Please create feature branches and submit merge requests.
+* main branch is write protected. Please create feature branches and submit merge requests and request approvals.
