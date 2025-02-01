@@ -24,3 +24,6 @@ Application built using serverless model.
 ### Output Logs
 * Logs folder is created to understand the commands, resource creations and development purposes. 
 * These are NOT used for development of business logic, but only to understand resource usage and command outputs.
+
+### Implemented git branch protection
+* main branch is write protected. Please create feature branches and submit merge requests.
